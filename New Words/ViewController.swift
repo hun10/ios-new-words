@@ -23,10 +23,10 @@ struct Section {
     let cells: [DetailedTextCell]
 }
 
-struct DetailedTextCell {
-    let main: String
-    let details: String
-    let id: Int
+class DetailedTextCell {
+    var main: String = ""
+    var details: String = ""
+    var id: Int = 0
 }
 
 class ViewController: UITableViewController, WordAdderDelegate {

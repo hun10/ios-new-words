@@ -35,6 +35,14 @@ class Model {
         formatter.dateStyle = .full
         return formatter
     }()
+
+    static let fullDateFormat = { () -> DateFormatter in
+        let formatter = DateFormatter()
+        formatter.doesRelativeDateFormatting = false
+        formatter.timeStyle = .short
+        formatter.dateStyle = .full
+        return formatter
+    }()
     
     static func words() -> [[String : Any]] {
         return UserDefaults.standard.array(forKey: "words") as? [[String : Any]] ?? []
@@ -45,6 +53,7 @@ class Model {
         
         var currentSectionTitle = ""
         var currentSection: [DetailedTextCell] = []
+        var occurrences: [String : DetailedTextCell] = [:]
         var index = 0
         for item in words() {
             let date = item["date"] as! Date
@@ -56,11 +65,15 @@ class Model {
                 currentSectionTitle = itemDate
                 currentSection = []
             }
-            currentSection.append(DetailedTextCell(
-                main: item["word"] as! String,
-                details: timeFormat.string(from: date),
-                id: index
-            ))
+            let detCel = DetailedTextCell()
+            detCel.main = item["word"] as! String
+            detCel.details = timeFormat.string(from: date)
+            detCel.id = index
+            if (occurrences[detCel.main] != nil) {
+                occurrences[detCel.main]?.details += " (also at " + fullDateFormat.string(from: date) + ")";
+            }
+            occurrences[detCel.main] = detCel
+            currentSection.append(detCel)
             index += 1
         }
         if (currentSection.count > 0) {
