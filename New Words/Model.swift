@@ -18,6 +18,7 @@
  */
 
 import Foundation
+import UIKit
 
 class Model {
     
@@ -44,6 +45,8 @@ class Model {
         return formatter
     }()
     
+    static let yellowText: [String:Any] = [NSForegroundColorAttributeName : #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)]
+
     static func words() -> [[String : Any]] {
         return UserDefaults.standard.array(forKey: "words") as? [[String : Any]] ?? []
     }
@@ -67,11 +70,9 @@ class Model {
             }
             let detCel = DetailedTextCell()
             detCel.main = item["word"] as! String
-            detCel.details = timeFormat.string(from: date)
+            detCel.details.append(NSAttributedString.init(string: timeFormat.string(from: date)))
             detCel.id = index
-            if (occurrences[detCel.main] != nil) {
-                occurrences[detCel.main]?.details += " (also at " + fullDateFormat.string(from: date) + ")";
-            }
+            occurrences[detCel.main]?.details.append(NSAttributedString.init(string: " (see " + fullDateFormat.string(from: date) + ")", attributes: yellowText));
             occurrences[detCel.main] = detCel
             currentSection.append(detCel)
             index += 1

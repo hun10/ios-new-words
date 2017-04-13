@@ -25,7 +25,7 @@ struct Section {
 
 class DetailedTextCell {
     var main: String = ""
-    var details: String = ""
+    var details: NSMutableAttributedString = NSMutableAttributedString()
     var id: Int = 0
 }
 
@@ -81,7 +81,7 @@ class ViewController: UITableViewController, WordAdderDelegate {
         
         let detailedTextCell = model[indexPath.section].cells[indexPath.row]
         cell.textLabel?.text = detailedTextCell.main
-        cell.detailTextLabel?.text = detailedTextCell.details
+        cell.detailTextLabel?.attributedText = detailedTextCell.details
         
         return cell
     }
