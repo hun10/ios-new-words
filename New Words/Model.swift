@@ -45,7 +45,7 @@ class Model {
         return formatter
     }()
     
-    static let yellowText: [String:Any] = [NSForegroundColorAttributeName : #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)]
+    static let yellowText: [NSAttributedStringKey:Any] = [NSAttributedStringKey.foregroundColor : #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)]
 
     static func words() -> [[String : Any]] {
         return UserDefaults.standard.array(forKey: "words") as? [[String : Any]] ?? []

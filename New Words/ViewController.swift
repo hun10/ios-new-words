@@ -52,11 +52,11 @@ class ViewController: UITableViewController, WordAdderDelegate {
         )
     }
     
-    func showAdder() {
+    @objc func showAdder() {
         wordAdder?.present(sender: self)
     }
     
-    func loadViewModel() {
+    @objc func loadViewModel() {
         model = Model.modelView()
         tableView?.reloadData()
     }
