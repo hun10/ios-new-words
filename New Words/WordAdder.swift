@@ -20,7 +20,7 @@ protocol WordAdderDelegate {
  WordAdder incapsulates an alert with text field to enter new word.
  It exposes a method to show the alert.
  Alert has two buttons: Cancel and Add.
- Add is disabled iff text field is empty or there's no such word in the dictionaries.
+ Add is disabled iff text field is empty.
  Both buttons make the alert disappear, but Add makes a delegate call.
  */
 class WordAdder {
@@ -59,7 +59,7 @@ class WordAdder {
     }
     
     @objc func textChanged(sender: UITextField) {
-        defaultAction!.isEnabled = !(sender.text!.isEmpty) && UIReferenceLibraryViewController.dictionaryHasDefinition(forTerm: sender.text!)
+        defaultAction!.isEnabled = !(sender.text!.isEmpty)
     }
     
     func present(sender: UIViewController) {
